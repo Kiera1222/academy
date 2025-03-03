@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wild Riders - Animal Riding Game</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .screen {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        /* Additional styles for animal images */
+        .animal-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .animal-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .animal-card.selected img {
+            background-color: rgba(241, 196, 15, 0.3);
+            box-shadow: 0 0 10px #f1c40f;
+        }
+        
+        /* Style for when images fail to load */
+        .animal-card .animal-icon {
+            font-size: 80px;
+            display: none;
+        }
+        
+        .animal-card img[src=""] + .animal-icon,
+        .animal-card img:not([src]) + .animal-icon,
+        .animal-card img.error + .animal-icon {
+            display: block;
+        }
+        
+        /* Ensure game screen displays correctly */
+        #game-screen.active {
+            display: block !important;
+            z-index: 100;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #87CEEB; /* Fallback sky color */
+        }
+        
+        #game-canvas {
+            display: block !important;
+            width: 100% !important;
+            height: 100% !important;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        #game-ui {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <!-- Character Selection Screen -->
+    <div id="selection-screen" class="screen active">
+        <h1>Wild Riders</h1>
+        <h2>Choose Your Animal</h2>
+        
+        <div class="animals-container">
+            <div class="animal-card" data-animal="wolf">
+                <img src="Moro.webp" alt="Great White Wolf" onerror="this.classList.add('error')">
+                
+                <h3>Great White Wolf</h3>
+                <p>Fast and agile</p>
+            </div>
+            
+            <div class="animal-card" data-animal="tiger">
+                <img src="tiger.png" alt="Tiger" onerror="this.classList.add('error')">
+                
+                <h3>Tiger</h3>
+                <p>Strong and powerful</p>
+            </div>
+            
+            <div class="animal-card" data-animal="antelope">
+                <img src="antelope.webp" alt="Large Antelope" onerror="this.classList.add('error')">
+                
+                <h3>Large Antelope</h3>
+                <p>Extremely fast</p>
+            </div>
+            
+            <div class="animal-card" data-animal="boar">
+                <img src="boar.jpg" alt="Wild Boar" onerror="this.classList.add('error')">
+                
+                <h3>Wild Boar</h3>
+                <p>Tough and resilient</p>
+            </div>
+            
+            <div class="animal-card" data-animal="giraffe">
+                <img src="giraffe.png" alt="Giraffe" onerror="this.classList.add('error')">
+                
+                <h3>Giraffe</h3>
+                <p>Great visibility</p>
+            </div>
+        </div>
+        
+        <div class="player-info">
+            <input type="text" id="player-name" placeholder="Enter your name">
+            <button id="start-game">Start Game</button>
+        </div>
+    </div>
+    
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <canvas id="game-canvas"></canvas>
+        <div id="game-ui">
+            <div id="player-info">
+                <span id="player-name-display"></span>
+                <span id="player-animal-display"></span>
+            </div>
+            <button id="back-to-selection" class="btn">Back to Selection</button>
+        </div>
+    </div>
+    
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" class="screen">
+        <h1>Game Over</h1>
+        <button id="play-again">Play Again</button>
+    </div>
+    
+    <!-- Load Three.js for 3D rendering -->
+    <script src="js/lib/three.min.js"></script>
+    
+    <!-- Load GLTFLoader for 3D models -->
+    <script src="js/lib/GLTFLoader.js"></script>
+    
+    <!-- Load OBJLoader for OBJ format models -->
+    <script src="js/lib/OBJLoader.js"></script>
+    
+    <!-- Load MTLLoader for materials -->
+    <script src="js/lib/MTLLoader.js"></script>
+    
+    <!-- Load Socket.io for multiplayer functionality (commented out for now) -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.min.js"></script> -->
+    
+    <!-- Game Scripts -->
+    <script src="js/game.js"></script>
+</body>
+</html>

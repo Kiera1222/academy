@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Lord of the Rings Quiz</title>
+    <title>Harry Potter Quiz</title>
     <style>
       body {
         font-family: "Comic Sans MS", cursive;
@@ -12,7 +12,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: url('map.jpg') center/cover no-repeat fixed;
+        background: url('hogwarts.jpg') center/cover no-repeat fixed;
       }
 
       .game-container {
@@ -23,7 +23,7 @@
         text-align: center;
         max-width: 800px;
         width: 90%;
-        border: 8px solid #8B4513;
+        border: 8px solid #740001;
         position: relative;
         z-index: 1;
       }
@@ -37,7 +37,7 @@
         font-size: 28px;
         margin: 20px 0;
         color: #2d3436;
-        background: #DAA520;
+        background: #FFD700;
         padding: 20px;
         border-radius: 15px;
       }
@@ -50,44 +50,7 @@
       }
 
       .option {
-        background: #2F4F4F;
-        border: none;
-        padding: 15px;
-        border-radius: 15px;
-        color: #ffffff;
-        font-size: 20px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .option:hover {
-        transform: scale(1.05);
-      }
-
-      .option.correct {
-        background: #2ecc71;
-        transform: scale(1.05);
-      }
-
-      .option.incorrect {
-        background: #e74c3c;
-        transform: scale(1.05);
-      }
-
-      .option:disabled {
-        cursor: not-allowed;
-        opacity: 0.7;
-      }
-
-      .options {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        margin: 20px 0;
-      }
-
-      .option {
-        background: #2F4F4F;
+        background: #1a472a;
         border: none;
         padding: 15px;
         border-radius: 15px;
@@ -122,7 +85,7 @@
         align-items: center;
         margin-top: 20px;
         padding: 15px;
-        background: #8B4513;
+        background: #740001;
         border-radius: 15px;
         color: white;
         font-size: 20px;
@@ -170,7 +133,7 @@
       }
 
       .play-again-btn {
-        background: #2F4F4F;
+        background: #1a472a;
         border: none;
         padding: 15px;
         border-radius: 15px;
@@ -182,20 +145,20 @@
 
       .play-again-btn:hover {
         transform: scale(1.05);
-        background: #3a6363;
+        background: #2a573a;
       }
     </style>
   </head>
   <body>
-    <audio id="bgMusic" src="Hobbits.mp3" loop></audio>
+    <audio id="bgMusic" src="hedwig.mp3" loop></audio>
     
     <div class="game-container">
-      <div class="monster">💍</div>
-      <h2>The Lord of the Rings Quiz</h2>
+      <div class="monster">⚡</div>
+      <h2>Harry Potter Quiz</h2>
       <div class="problem" id="problem"></div>
       <div class="options" id="options"></div>
       <div class="stats">
-        <div>Correct: <span id="score">0</span>/10 ✅</div>
+        <div>Correct: <span id="score">0</span>/10 ✨</div>
         <div>Lives: <span id="lives">3</span>❤️</div>
         <div class="audio-controls">
           <button id="musicBtn" onclick="toggleMusic()">🔊</button>
@@ -213,386 +176,106 @@
     </div>
 
     <script>
-      const lotrQuestions = [
+      const hpQuestions = [
         {
-          question: "Who is the author of The Lord of the Rings?",
-          answer: "J.R.R. Tolkien",
-          options: ["J.R.R. Tolkien", "C.S. Lewis", "George R.R. Martin", "Terry Pratchett"]
+          question: "What is Harry Potter's Patronus?",
+          answer: "Stag",
+          options: ["Stag", "Doe", "Wolf", "Phoenix"]
         },
         {
-          question: "What is the name of Frodo's home?",
-          answer: "Bag End",
-          options: ["Bag End", "Brandywine Hall", "The Shire", "Hobbiton House"]
+          question: "What house is Harry Potter sorted into?",
+          answer: "Gryffindor",
+          options: ["Gryffindor", "Slytherin", "Hufflepuff", "Ravenclaw"]
         },
         {
-          question: "Who is Frodo's closest friend and companion?",
-          answer: "Samwise Gamgee",
-          options: ["Samwise Gamgee", "Peregrin Took", "Meriadoc Brandybuck", "Bilbo Baggins"]
+          question: "What is the core of Harry's wand?",
+          answer: "Phoenix feather",
+          options: ["Phoenix feather", "Dragon heartstring", "Unicorn hair", "Basilisk fang"]
         },
         {
-          question: "What is the name of Gandalf's sword?",
-          answer: "Glamdring",
-          options: ["Glamdring", "Sting", "Andúril", "Narsil"]
+          question: "Who is Harry's godfather?",
+          answer: "Sirius Black",
+          options: ["Sirius Black", "Remus Lupin", "Albus Dumbledore", "Severus Snape"]
         },
         {
-          question: "What creature does Gandalf fight in Moria?",
-          answer: "Balrog",
-          options: ["Balrog", "Nazgûl", "Watcher in the Water", "Cave Troll"]
+          question: "What is the name of Harry's owl?",
+          answer: "Hedwig",
+          options: ["Hedwig", "Errol", "Fawkes", "Pigwidgeon"]
         },
         {
-          question: "What is the name of the tower where Saruman resides?",
-          answer: "Orthanc",
-          options: ["Orthanc", "Barad-dûr", "Minas Tirith", "Cirith Ungol"]
+          question: "What position does Harry play in Quidditch?",
+          answer: "Seeker",
+          options: ["Seeker", "Keeper", "Chaser", "Beater"]
         },
         {
-          question: "What is the name of the forest where the Ents live?",
-          answer: "Fangorn Forest",
-          options: ["Fangorn Forest", "Mirkwood", "Lothlórien", "Old Forest"]
+          question: "What is the name of the Weasleys' house?",
+          answer: "The Burrow",
+          options: ["The Burrow", "Shell Cottage", "Godric's Hollow", "Grimmauld Place"]
         },
         {
-          question: "Who is the king of Rohan?",
-          answer: "Théoden",
-          options: ["Théoden", "Denethor", "Éomer", "Aragorn"]
+          question: "What is Hermione's cat's name?",
+          answer: "Crookshanks",
+          options: ["Crookshanks", "Scabbers", "Trevor", "Mrs. Norris"]
         },
         {
-          question: "What is the name of Aragorn's sword?",
-          answer: "Andúril",
-          options: ["Andúril", "Glamdring", "Sting", "Narsil"]
+          question: "What is the name of the Hogwarts gamekeeper?",
+          answer: "Rubeus Hagrid",
+          options: ["Rubeus Hagrid", "Argus Filch", "Minerva McGonagall", "Pomona Sprout"]
         },
         {
-          question: "What is the name of the giant spider that attacks Frodo?",
-          answer: "Shelob",
-          options: ["Shelob", "Ungoliant", "Arachne", "Webweaver"]
+          question: "What is the name of the three-headed dog guarding the Philosopher's Stone?",
+          answer: "Fluffy",
+          options: ["Fluffy", "Fang", "Norbert", "Aragog"]
         },
         {
-          question: "What is the name of the mountain where the One Ring must be destroyed?",
-          answer: "Mount Doom",
-          options: ["Mount Doom", "Caradhras", "Erebor", "Weathertop"]
+          question: "What is the name of the Hogwarts Express platform?",
+          answer: "Platform 9¾",
+          options: ["Platform 9¾", "Platform 7½", "Platform 10½", "Platform 8⅔"]
         },
         {
-          question: "Who is the steward of Gondor?",
-          answer: "Denethor",
-          options: ["Denethor", "Boromir", "Faramir", "Aragorn"]
+          question: "What is the name of Harry's first broomstick?",
+          answer: "Nimbus 2000",
+          options: ["Nimbus 2000", "Firebolt", "Cleansweep Seven", "Comet 260"]
         },
         {
-          question: "What is the name of the hobbit settlement where Frodo lives?",
-          answer: "Hobbiton",
-          options: ["Hobbiton", "Buckland", "Bree", "Michel Delving"]
+          question: "What is the name of the Hogwarts poltergeist?",
+          answer: "Peeves",
+          options: ["Peeves", "Nearly Headless Nick", "The Bloody Baron", "The Fat Friar"]
         },
         {
-          question: "What is the name of the inn in Bree?",
-          answer: "The Prancing Pony",
-          options: ["The Prancing Pony", "The Green Dragon", "The Golden Perch", "The Forsaken Inn"]
+          question: "What is the password to the Gryffindor common room in Harry's first year?",
+          answer: "Caput Draconis",
+          options: ["Caput Draconis", "Fortuna Major", "Pig Snout", "Balderdash"]
         },
         {
-          question: "What is the name of the river that flows through Gondor?",
-          answer: "Anduin",
-          options: ["Anduin", "Brandywine", "Bruinen", "Celebrant"]
+          question: "What is the name of Draco Malfoy's father?",
+          answer: "Lucius",
+          options: ["Lucius", "Abraxas", "Scorpius", "Narcissus"]
         },
         {
-          question: "What is the name of the forest where Tom Bombadil lives?",
-          answer: "Old Forest",
-          options: ["Old Forest", "Fangorn Forest", "Mirkwood", "Lothlórien"]
+          question: "What is the name of the Weasleys' family ghoul?",
+          answer: "Ghoul",
+          options: ["Ghoul", "Boris", "Gregory", "Winston"]
         },
         {
-          question: "What is the name of the bridge where Gandalf faces the Balrog?",
-          answer: "Bridge of Khazad-dûm",
-          options: ["Bridge of Khazad-dûm", "Last Bridge", "Bridge of Osgiliath", "Bridge of Mitheithel"]
+          question: "What is the name of the Hogwarts caretaker?",
+          answer: "Argus Filch",
+          options: ["Argus Filch", "Rubeus Hagrid", "Mundungus Fletcher", "Dedalus Diggle"]
         },
         {
-          question: "What is the name of the mountain pass that the Fellowship attempts to cross?",
-          answer: "Caradhras",
-          options: ["Caradhras", "Cirith Ungol", "High Pass", "Dimrill Dale"]
+          question: "What is the name of Harry's mother?",
+          answer: "Lily",
+          options: ["Lily", "Rose", "Petunia", "Narcissa"]
         },
         {
-          question: "What is the name of the forest realm ruled by Galadriel?",
-          answer: "Lothlórien",
-          options: ["Lothlórien", "Mirkwood", "Fangorn Forest", "Old Forest"]
+          question: "What is the name of Ron's rat?",
+          answer: "Scabbers",
+          options: ["Scabbers", "Crookshanks", "Trevor", "Fang"]
         },
         {
-          question: "What is the name of the fortress of Rohan?",
-          answer: "Helm's Deep",
-          options: ["Helm's Deep", "Edoras", "Dunharrow", "Isengard"]
-        },
-        {
-          question: "What is the name of the capital city of Rohan?",
-          answer: "Edoras",
-          options: ["Edoras", "Helm's Deep", "Dunharrow", "Aldburg"]
-        },
-        {
-          question: "What is the name of the fortress city of Gondor?",
-          answer: "Minas Tirith",
-          options: ["Minas Tirith", "Osgiliath", "Minas Morgul", "Dol Amroth"]
-        },
-        {
-          question: "What is the name of the dead marshes that Frodo, Sam, and Gollum cross?",
-          answer: "Dead Marshes",
-          options: ["Dead Marshes", "Midgewater Marshes", "Gladden Fields", "Nindalf"]
-        },
-        {
-          question: "What is the name of the pass that Frodo and Sam use to enter Mordor?",
-          answer: "Cirith Ungol",
-          options: ["Cirith Ungol", "Morgul Vale", "Morannon", "Udûn"]
-        },
-        {
-          question: "What is the name of the tower where Frodo is held captive?",
-          answer: "Cirith Ungol",
-          options: ["Cirith Ungol", "Barad-dûr", "Minas Morgul", "Orthanc"]
-        },
-        {
-          question: "What is the name of the gate to Mordor?",
-          answer: "Black Gate",
-          options: ["Black Gate", "Morannon", "Dark Portal", "Gates of Night"]
-        },
-        {
-          question: "What is the name of Théoden's horse?",
-          answer: "Snowmane",
-          options: ["Snowmane", "Shadowfax", "Arod", "Hasufel"]
-        },
-        {
-          question: "What is the name of the river that borders the Shire?",
-          answer: "Brandywine",
-          options: ["Brandywine", "Anduin", "Greyflood", "Withywindle"]
-        },
-        {
-          question: "What is the name of the mountain where the dwarves had their kingdom?",
-          answer: "Erebor",
-          options: ["Erebor", "Moria", "Iron Hills", "Blue Mountains"]
-        },
-        {
-          question: "What is the name of the dwarf kingdom in Moria?",
-          answer: "Khazad-dûm",
-          options: ["Khazad-dûm", "Erebor", "Iron Hills", "Blue Mountains"]
-        },
-        {
-          question: "What is the name of the elf kingdom in Mirkwood?",
-          answer: "Woodland Realm",
-          options: ["Woodland Realm", "Rivendell", "Lothlórien", "Grey Havens"]
-        },
-        {
-          question: "What is the name of the elf haven by the sea?",
-          answer: "Grey Havens",
-          options: ["Grey Havens", "Rivendell", "Lothlórien", "Woodland Realm"]
-        },
-        {
-          question: "What is the name of the mountain where Bilbo found the ring?",
-          answer: "The Misty Mountains",
-          options: ["The Misty Mountains", "Erebor", "Mount Doom", "Weathertop"]
-        },
-        {
-          question: "What is the name of the creature that originally owned the ring?",
-          answer: "Gollum",
-          options: ["Gollum", "Bilbo", "Sauron", "Isildur"]
-        },
-        {
-          question: "What is the name of the wizard who leads the White Council?",
-          answer: "Saruman",
-          options: ["Saruman", "Gandalf", "Radagast", "Alatar"]
-        },
-        {
-          question: "What is the name of the hobbit who accompanies Frodo from the beginning?",
-          answer: "Sam",
-          options: ["Sam", "Merry", "Pippin", "Bilbo"]
-        },
-        {
-          question: "What is the name of the creature that guides Frodo to Mordor?",
-          answer: "Gollum",
-          options: ["Gollum", "Sméagol", "Shelob", "Nazgûl"]
-        },
-        {
-          question: "What is the name of the horse lord who becomes king of Rohan?",
-          answer: "Éomer",
-          options: ["Éomer", "Théoden", "Théodred", "Gamling"]
-        },
-        {
-          question: "What is the name of the steward's younger son?",
-          answer: "Faramir",
-          options: ["Faramir", "Boromir", "Denethor", "Imrahil"]
-        },
-        {
-          question: "What is the name of the king of the dead?",
-          answer: "King of the Dead",
-          options: ["King of the Dead", "Witch-king", "Nazgûl Lord", "Shadow King"]
-        },
-        {
-          question: "What is the name of the mountain where the beacons of Gondor are lit?",
-          answer: "Mindolluin",
-          options: ["Mindolluin", "Erebor", "Caradhras", "Weathertop"]
-        },
-        {
-          question: "What is the name of the river that flows through the Shire?",
-          answer: "Water",
-          options: ["Water", "Brandywine", "Withywindle", "Hoarwell"]
-        },
-        {
-          question: "What is the name of the forest near Bree?",
-          answer: "Chetwood",
-          options: ["Chetwood", "Old Forest", "Fangorn", "Druadan Forest"]
-        },
-        {
-          question: "What is the name of the hill where Edoras is built?",
-          answer: "Mount Starkhorn",
-          options: ["Mount Starkhorn", "Dunharrow", "Halifirien", "Irensaga"]
-        },
-        {
-          question: "What is the name of the valley where Rivendell is located?",
-          answer: "Imladris",
-          options: ["Imladris", "Anduin Vale", "Nan Curunír", "Dimrill Dale"]
-        },
-        {
-          question: "What is the name of the bridge in Minas Tirith?",
-          answer: "Great Gate",
-          options: ["Great Gate", "Causeway Forts", "Stone Bridge", "White Bridge"]
-        },
-        {
-          question: "What is the name of the tower in Minas Morgul?",
-          answer: "Tower of the Moon",
-          options: ["Tower of the Moon", "Dark Tower", "Tower of Sorcery", "Black Tower"]
-        },
-        {
-          question: "What is the name of the gate to the Mines of Moria?",
-          answer: "Doors of Durin",
-          options: ["Doors of Durin", "Eastern Gate", "Dimrill Gate", "Hollin Gate"]
-        },
-        {
-          question: "What is the name of the battlefield before Minas Tirith?",
-          answer: "Pelennor Fields",
-          options: ["Pelennor Fields", "Fields of Celebrant", "Dagorlad", "Field of Cormallen"]
-        },
-        {
-          question: "What is the name of the river through Mirkwood?",
-          answer: "Forest River",
-          options: ["Forest River", "Enchanted River", "Running River", "Long Lake"]
-        },
-        {
-          question: "What is the name of the mountain range east of the Shire?",
-          answer: "Weather Hills",
-          options: ["Weather Hills", "Blue Mountains", "White Downs", "Green Hills"]
-        },
-        {
-          question: "What is the name of the forest in Beleriand?",
-          answer: "Doriath",
-          options: ["Doriath", "Neldoreth", "Region", "Brethil"]
-        },
-        {
-          question: "What is the name of the river in Gondor that flows to the sea?",
-          answer: "Anduin",
-          options: ["Anduin", "Morthond", "Ringló", "Gilrain"]
-        },
-        {
-          question: "What is the name of the mountain where the eagles live?",
-          answer: "Misty Mountains",
-          options: ["Misty Mountains", "Lonely Mountain", "Grey Mountains", "White Mountains"]
-        },
-        {
-          question: "What is the name of the forest near Gondor?",
-          answer: "Druadan Forest",
-          options: ["Druadan Forest", "Firien Wood", "North Ithilien", "South Ithilien"]
-        },
-        {
-          question: "What is the name of the valley in Mordor?",
-          answer: "Udûn",
-          options: ["Udûn", "Gorgoroth", "Morgai", "Lithlad"]
-        },
-        {
-          question: "What is the name of the tower in Cirith Ungol?",
-          answer: "Tower of Cirith Ungol",
-          options: ["Tower of Cirith Ungol", "Durthang", "Narchost", "Carchost"]
-        },
-        {
-          question: "What is the name of the mountain where the ring was forged?",
-          answer: "Orodruin",
-          options: ["Orodruin", "Mount Doom", "Amon Amarth", "Barad-dûr"]
-        },
-        {
-          question: "What is the name of the river in Rohan?",
-          answer: "Entwash",
-          options: ["Entwash", "Snowbourn", "Mering Stream", "Adorn"]
-        },
-        {
-          question: "What is the name of the forest in Rohan?",
-          answer: "Fangorn Forest",
-          options: ["Fangorn Forest", "Firien Wood", "Druadan Forest", "Old Forest"]
-        },
-        {
-          question: "What is the name of the mountain pass in Rohan?",
-          answer: "Gap of Rohan",
-          options: ["Gap of Rohan", "Helm's Deep", "Dunharrow", "Fords of Isen"]
-        },
-        {
-          question: "What is the name of the river that borders Lothlórien?",
-          answer: "Celebrant",
-          options: ["Celebrant", "Nimrodel", "Silverlode", "Anduin"]
-        },
-        {
-          question: "What is the name of the mountain where the dwarves awoke?",
-          answer: "Mount Gundabad",
-          options: ["Mount Gundabad", "Erebor", "Iron Hills", "Grey Mountains"]
-        },
-        {
-          question: "What is the name of the forest in the north?",
-          answer: "Mirkwood",
-          options: ["Mirkwood", "Fangorn Forest", "Old Forest", "Druadan Forest"]
-        },
-        {
-          question: "What is the name of the mountain range in Mordor?",
-          answer: "Ephel Dúath",
-          options: ["Ephel Dúath", "Ered Lithui", "Ash Mountains", "Mountains of Shadow"]
-        },
-        {
-          question: "What is the name of the plain in Gondor?",
-          answer: "Pelennor",
-          options: ["Pelennor", "Lebennin", "Lossarnach", "Anórien"]
-        },
-        {
-          question: "What is the name of the river that flows through Moria?",
-          answer: "Sirannon",
-          options: ["Sirannon", "Kibil-nâla", "Celebrant", "Nimrodel"]
-        },
-        {
-          question: "What is the name of the mountain where the Balrog dwells?",
-          answer: "Caradhras",
-          options: ["Caradhras", "Celebdil", "Fanuidhol", "Zirakzigil"]
-        },
-        {
-          question: "What is the name of the valley before Rivendell?",
-          answer: "Bruinen",
-          options: ["Bruinen", "Imladris", "Dimrill Dale", "Nan Curunír"]
-        },
-        {
-          question: "What is the name of the forest in Gondor?",
-          answer: "Druadan Forest",
-          options: ["Druadan Forest", "Firien Wood", "Old Forest", "Fangorn Forest"]
-        },
-        {
-          question: "What is the name of the mountain where the beacons end?",
-          answer: "Halifirien",
-          options: ["Halifirien", "Calenhad", "Erelas", "Min-Rimmon"]
-        },
-        {
-          question: "What is the name of the river in the Dead Marshes?",
-          answer: "Entwash",
-          options: ["Entwash", "Anduin", "Morgulduin", "Sirannon"]
-        },
-        {
-          question: "What is the name of the mountain pass to Mordor?",
-          answer: "Cirith Ungol",
-          options: ["Cirith Ungol", "Morgul Vale", "Morannon", "Udûn"]
-        },
-        {
-          question: "What is the name of the valley in Rohan?",
-          answer: "Harrowdale",
-          options: ["Harrowdale", "Dunharrow", "Helm's Deep", "Westfold"]
-        },
-        {
-          question: "What is the name of the river that flows through Minas Tirith?",
-          answer: "Anduin",
-          options: ["Anduin", "Erui", "Sirith", "Ringló"]
-        },
-        {
-          question: "What is the name of the mountain where the ring was destroyed?",
-          answer: "Mount Doom",
-          options: ["Mount Doom", "Orodruin", "Amon Amarth", "Barad-dûr"]
+          question: "What is the name of the Hogwarts school song?",
+          answer: "Hoggy Warty Hogwarts",
+          options: ["Hoggy Warty Hogwarts", "Hogwarts Forever", "Magic and Might", "Witches and Wizards"]
         }
       ];
 
@@ -629,16 +312,16 @@
       }
 
       function generateProblem() {
-        if (usedQuestions.size === lotrQuestions.length) {
+        if (usedQuestions.size === hpQuestions.length) {
           usedQuestions.clear();
         }
         
-        let availableQuestions = lotrQuestions.filter((_, index) => !usedQuestions.has(index));
+        let availableQuestions = hpQuestions.filter((_, index) => !usedQuestions.has(index));
         let randomIndex = Math.floor(Math.random() * availableQuestions.length);
-        let questionIndex = lotrQuestions.indexOf(availableQuestions[randomIndex]);
+        let questionIndex = hpQuestions.indexOf(availableQuestions[randomIndex]);
         
         usedQuestions.add(questionIndex);
-        return lotrQuestions[questionIndex];
+        return hpQuestions[questionIndex];
       }
 
       function updateUI() {
@@ -673,14 +356,13 @@
           score++;
           if (score === 10) {
             setTimeout(() => {
-              showModal("Congratulations! 🎉", 
-                `You won the game! You answered all 10 questions correctly!`);
+              showModal("Congratulations! ⚡", 
+                `You won the game! You answered all 10 questions correctly! You're a true wizard!`);
             }, 1000);
             return;
           }
         } else {
           button.classList.add('incorrect');
-          // Find and highlight the correct answer
           buttons.forEach(btn => {
             if (btn.textContent === currentProblem.answer) {
               btn.classList.add('correct');
@@ -690,13 +372,12 @@
           if (lives === 0) {
             setTimeout(() => {
               showModal("Game Over 😢",
-                `You ran out of lives! You got ${score} questions correct.`);
+                `You ran out of lives! You got ${score} questions correct. Better luck next time!`);
             }, 1000);
             return;
           }
         }
 
-        // Wait 1 second before moving to next question
         setTimeout(() => {
           currentProblem = generateProblem();
           updateUI();
@@ -710,52 +391,27 @@
       }
 
       function resetGame() {
-        // Reset game state
         score = 0;
         lives = 3;
         usedQuestions.clear();
         
-        // Hide modal
         const modal = document.getElementById("gameModal");
         modal.style.display = "none";
         
-        // Reset UI elements
         document.getElementById("score").textContent = "0";
         document.getElementById("lives").textContent = "3";
         
-        // Clear options container
         const optionsContainer = document.getElementById("options");
         optionsContainer.innerHTML = "";
         
-        // Generate new question
         currentProblem = generateProblem();
-        
-        // Update UI with new question and options
-        document.getElementById("problem").textContent = currentProblem.question;
-        
-        // Create new option buttons
-        let shuffledOptions = [...currentProblem.options];
-        for (let i = shuffledOptions.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
-        }
-
-        shuffledOptions.forEach((option) => {
-          const button = document.createElement("button");
-          button.className = "option";
-          button.textContent = option;
-          button.onclick = () => checkAnswer(option, button);
-          optionsContainer.appendChild(button);
-        });
+        updateUI();
       }
 
-      // Start the game when page loads
       document.addEventListener('DOMContentLoaded', function() {
-        // Initialize the game
         currentProblem = generateProblem();
         updateUI();
         
-        // Add click event listener to Play Again button
         document.getElementById("playAgain").addEventListener("click", resetGame);
       });
     </script>

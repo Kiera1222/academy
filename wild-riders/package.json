@@ -1,0 +1,25 @@
+{
+  "name": "wild-riders",
+  "version": "1.0.0",
+  "description": "A multiplayer animal riding game",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "game",
+    "3d",
+    "multiplayer",
+    "animals",
+    "threejs"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "three": "^0.159.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+} 
