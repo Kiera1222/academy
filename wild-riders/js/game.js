@@ -89,7 +89,7 @@ const animals = {
     giraffe: { 
         speed: 8, 
         turnSpeed: 1.2, 
-        height: 4.0, 
+        height: 2.0, 
         width: 1.0,
         length: 2.5,
         color: 0xf1c40f,
@@ -557,8 +557,8 @@ function addAnimalFeatures(animalType, body, head) {
                 
             case 'giraffe':
                 // Extend the neck
-                body.scale.set(0.8, 1.5, 0.8);
-                head.position.y = 1.0;
+                body.scale.set(0.8, 3, 0.8);
+                head.position.y = 0.6;
                 
                 // Add spots
                 const spotsMaterial = new THREE.MeshPhongMaterial({ color: 0x8B4513 });
@@ -1219,10 +1219,10 @@ function updatePlayerMovement(delta) {
     let cameraOffset;
     if (rearViewActive) {
         // Rear view camera (in front of the player looking back)
-        cameraOffset = new THREE.Vector3(0, animalHeight * 1.5, 8);
+        cameraOffset = new THREE.Vector3(0, animalHeight * 4.5, 12);
     } else {
         // Normal camera (behind the player)
-        cameraOffset = new THREE.Vector3(0, animalHeight * 1.5, -8);
+        cameraOffset = new THREE.Vector3(0, animalHeight * 4.5, -8);
     }
     
     // Apply player rotation to camera offset
