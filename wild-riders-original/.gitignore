@@ -24,7 +24,7 @@ dist/
 build/
 
 # Downloaded libraries
-js/lib/
+# js/lib/
 
 # Temporary files
 .tmp/
