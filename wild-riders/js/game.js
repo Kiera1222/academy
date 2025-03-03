@@ -14,6 +14,7 @@ let clock = new THREE.Clock();
 let walkingSpeed = 0;
 let animationTime = 0;
 let otherPlayers = []; // Array to store other players
+let rearViewActive = false; // Track if rear view is active
 
 // Animal characteristics
 const animals = {
@@ -1042,6 +1043,11 @@ function onKeyDown(event) {
             moveRight = true;
             console.log('Move right set to true');
             break;
+        case 'KeyR':
+            // Toggle rear view camera
+            rearViewActive = !rearViewActive;
+            console.log('Rear view toggled:', rearViewActive);
+            break;
         case 'Escape':
             // Toggle pause
             gameActive = !gameActive;
@@ -1204,8 +1210,17 @@ function updatePlayerMovement(delta) {
     // Update camera position
     const animalHeight = animals[selectedAnimal].height;
     
-    // Position camera behind and slightly above the player
-    const cameraOffset = new THREE.Vector3(0, animalHeight * 1.5, -8);
+    // Determine camera position based on view mode
+    let cameraOffset;
+    if (rearViewActive) {
+        // Rear view camera (in front of the player looking back)
+        cameraOffset = new THREE.Vector3(0, animalHeight * 1.5, 8);
+    } else {
+        // Normal camera (behind the player)
+        cameraOffset = new THREE.Vector3(0, animalHeight * 1.5, -8);
+    }
+    
+    // Apply player rotation to camera offset
     cameraOffset.applyAxisAngle(new THREE.Vector3(0, 1, 0), playerModel.rotation.y);
     
     // Smooth camera following
@@ -1214,13 +1229,24 @@ function updatePlayerMovement(delta) {
     camera.position.y += (playerModel.position.y + cameraOffset.y - camera.position.y) * cameraLerpFactor;
     camera.position.z += (playerModel.position.z + cameraOffset.z - camera.position.z) * cameraLerpFactor;
     
-    // Look at a point slightly above the player
-    const lookAtPoint = new THREE.Vector3(
-        playerModel.position.x,
-        playerModel.position.y + animalHeight * 0.8,
-        playerModel.position.z
-    );
-    camera.lookAt(lookAtPoint);
+    // Look at a point based on view mode
+    if (rearViewActive) {
+        // In rear view, look back at the player
+        const lookBehindPoint = new THREE.Vector3(
+            playerModel.position.x,
+            playerModel.position.y + animalHeight * 0.8,
+            playerModel.position.z
+        );
+        camera.lookAt(lookBehindPoint);
+    } else {
+        // Normal view, look ahead of the player
+        const lookAtPoint = new THREE.Vector3(
+            playerModel.position.x,
+            playerModel.position.y + animalHeight * 0.8,
+            playerModel.position.z
+        );
+        camera.lookAt(lookAtPoint);
+    }
     
     // Update player position in the players object
     if (players[playerName]) {
