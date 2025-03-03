@@ -87,9 +87,44 @@
             color: white;
             padding: 10px;
             border-radius: 5px;
-            z-index: 10;
+            z-index: 1000;
+            pointer-events: auto;
         }
-
+        
+        #back-to-selection {
+            display: block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        #back-to-selection:hover {
+            background-color: #c0392b;
+        }
+        
+        #controls-help {
+            margin-top: 15px;
+            font-size: 12px;
+            line-height: 1.4;
+            opacity: 0.8;
+        }
+        
+        #controls-help h4 {
+            margin: 0 0 5px 0;
+            text-decoration: underline;
+        }
+        
+        #controls-help ul {
+            margin: 0;
+            padding-left: 15px;
+        }
+        
         .text-center {
             text-align: center;
         }
@@ -153,6 +188,15 @@
                 <span id="player-animal-display"></span>
             </div>
             <button id="back-to-selection" class="btn">Back to Selection</button>
+            <div id="controls-help">
+                <h4>Keyboard Controls:</h4>
+                <ul>
+                    <li>WASD / Arrow Keys: Move</li>
+                    <li>R: Toggle rear view</li>
+                    <li>B: Back to selection</li>
+                    <li>ESC: Pause game</li>
+                </ul>
+            </div>
         </div>
     </div>
     

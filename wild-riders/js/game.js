@@ -1048,6 +1048,11 @@ function onKeyDown(event) {
             rearViewActive = !rearViewActive;
             console.log('Rear view toggled:', rearViewActive);
             break;
+        case 'KeyB':
+            // Back to selection screen shortcut
+            console.log('B key pressed, going back to selection screen');
+            backToSelection();
+            break;
         case 'Escape':
             // Toggle pause
             gameActive = !gameActive;
@@ -1539,32 +1544,58 @@ function updateSimulatedPlayers(delta) {
 function backToSelection() {
     console.log('Going back to selection screen...');
     
-    // Stop game loop
-    gameActive = false;
-    
-    // Reset game state
-    if (scene) {
-        // Remove all objects from scene
-        while(scene.children.length > 0) { 
-            scene.remove(scene.children[0]); 
+    try {
+        // Stop game loop
+        gameActive = false;
+        
+        // Reset game state
+        if (scene) {
+            // Remove all objects from scene
+            while(scene.children.length > 0) { 
+                scene.remove(scene.children[0]); 
+            }
         }
+        
+        // Reset player model and terrain
+        playerModel = null;
+        terrain = null;
+        
+        // Reset movement flags
+        moveForward = false;
+        moveBackward = false;
+        moveLeft = false;
+        moveRight = false;
+        rearViewActive = false;
+        
+        // Reset other players
+        otherPlayers = [];
+        
+        // Hide game screen and show selection screen
+        if (gameScreen) gameScreen.classList.remove('active');
+        if (selectionScreen) selectionScreen.classList.add('active');
+        
+        // Reset camera position
+        if (camera) {
+            camera.position.set(0, 5, -10);
+            camera.lookAt(0, 0, 0);
+        }
+        
+        // Reset clock
+        clock = new THREE.Clock();
+        
+        // Reset animation time
+        animationTime = 0;
+        
+        // Reset walking speed
+        walkingSpeed = 0;
+        
+        console.log('Successfully returned to selection screen');
+    } catch (error) {
+        console.error('Error returning to selection screen:', error);
+        // Force return to selection screen even if there's an error
+        if (gameScreen) gameScreen.classList.remove('active');
+        if (selectionScreen) selectionScreen.classList.add('active');
     }
-    
-    // Reset player model and terrain
-    playerModel = null;
-    terrain = null;
-    
-    // Reset movement flags
-    moveForward = false;
-    moveBackward = false;
-    moveLeft = false;
-    moveRight = false;
-    
-    // Hide game screen and show selection screen
-    if (gameScreen) gameScreen.classList.remove('active');
-    if (selectionScreen) selectionScreen.classList.add('active');
-    
-    console.log('Successfully returned to selection screen');
 }
 
 // Initialize the game when the DOM is loaded
